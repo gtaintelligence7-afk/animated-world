@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animated World – real stories, animated worlds</title>
+<meta name="description" content="Animated World turns verified real-world news into short cinematic 3D animated stories. Science, space, nature and extraordinary human stories.">
+<meta property="og:title" content="Animated World – real stories, animated worlds">
+<meta property="og:description" content="Verified real-world news retold as short 3D animated films.">
+<meta property="og:image" content="og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1230">
+<link rel="icon" href="logo.png">
+<style>
+:root{--night:#070a1c;--sky:#5aa8ff;--gold:#ffd36b;--ember:#ffaa5a;--mint:#7fe3b0;--text:#f6f7ff;--muted:#aab3d8;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--text);background:var(--night);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 500px at 15% 0%,rgba(90,168,255,.35),transparent 60%),radial-gradient(800px 500px at 90% 20%,rgba(255,170,90,.25),transparent 60%),linear-gradient(180deg,#101a45,#070a1c 60%)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 48px}
+header{text-align:center}
+.logo{width:120px;height:120px;border-radius:28px;box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 2px var(--gold)}
+h1{font-size:clamp(30px,8vw,52px);font-weight:900;margin-top:16px;letter-spacing:.5px}
+.slogan{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:14px;margin-top:4px}
+.intro{color:var(--muted);max-width:560px;margin:12px auto 0}
+h2{font-size:13px;letter-spacing:2px;color:var(--sky);margin:36px 0 12px;font-weight:900}
+.links{display:grid;gap:10px}
+.btn{display:flex;align-items:center;gap:14px;padding:15px 18px;border-radius:18px;background:var(--card);border:1px solid var(--line);font-weight:800}
+.btn small{display:block;font-weight:600;color:var(--muted)}
+.btn.off{opacity:.5}
+.btn .go{margin-left:auto;color:var(--gold);font-size:13px}
+.ep{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:12px;border-radius:20px;background:var(--card);border:1px solid var(--line);align-items:center}
+.ep img{width:120px;height:213px;object-fit:cover;border-radius:14px}
+.ep b{display:block;font-size:18px;line-height:1.25}
+.ep .meta{color:var(--muted);font-size:13px;margin-top:6px}
+.badge{display:inline-block;font-size:11px;font-weight:900;letter-spacing:1px;padding:4px 9px;border-radius:999px;background:rgba(255,211,107,.15);color:var(--gold);margin-bottom:8px}
+.how{display:grid;gap:10px}
+.how div{padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.how b{color:var(--mint)}
+.contact{padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+footer{margin-top:36px;text-align:center;font-size:12px;color:var(--muted);line-height:1.6}
+@media(min-width:900px){.links{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img class="logo" src="logo.png" alt="Animated World logo" width="120" height="120">
+  <h1>ANIMATED WORLD</h1>
+  <p class="slogan">REAL STORIES. ANIMATED WORLDS.</p>
+  <p class="intro">Verified real-world news retold as short, cinematic 3D animated films. Space, science, nature and extraordinary human stories, in under a minute.</p>
+</header>
+<h2>FOLLOW US EVERYWHERE</h2>
+<nav class="links" id="links"></nav>
+<h2>EPISODES</h2>
+<section id="eps" class="links"></section>
+<h2>HOW WE MAKE THEM</h2>
+<section class="how">
+  <div><b>Verified first.</b> Every story is checked with at least two trustworthy sources.</div>
+  <div><b>Clearly animated.</b> Every film is labelled as animation, never presented as real footage.</div>
+  <div><b>New hero every time.</b> Each story gets its own original character.</div>
+</section>
+<section id="member" hidden><h2>SUPPORT US</h2><div class="contact" id="memberBox"></div></section>
+<h2>CONTACT</h2>
+<section class="contact" id="contact"></section>
+<footer>
+  <p>Updated <span id="upd"></span> · © 2026 Animated World</p>
+  <p>All characters and designs are original. Animated illustrations, not real footage. Sources are listed with every episode.</p>
+  <p>No cookies. No tracking of personal data.</p>
+</footer>
+</div>
+<script src="content.js"></script>
+<script>
+const S=window.SITE, esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+document.getElementById('links').innerHTML=S.socials.map(s=>s.active
+ ?`<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener" data-goatcounter-click="out-${esc(s.name)}"><span>${esc(s.name)}<small>${esc(s.handle)}</small></span><span class="go">FOLLOW →</span></a>`
+ :`<div class="btn off" aria-disabled="true"><span>${esc(s.name)}<small>coming soon</small></span></div>`).join('');
+document.getElementById('eps').innerHTML=S.episodes.map(e=>{const inner=`<img src="${esc(e.image)}" alt="${esc(e.ep)} still" loading="lazy" width="120" height="213"><div><span class="badge">${esc(e.ep)} · ${esc(e.status.toUpperCase())}</span><b>${esc(e.title)}</b><div class="meta">${esc(e.topic)} · Sources: ${esc(e.sources)}</div></div>`;
+ return e.url?`<a class="ep" href="${esc(e.url)}" target="_blank" rel="noopener">${inner}</a>`:`<div class="ep">${inner}</div>`;}).join('');
+document.getElementById('contact').textContent=S.contact.text+(S.contact.email?' '+S.contact.email:'');
+document.getElementById('upd').textContent=S.updated;
+if(S.membership.enabled&&S.membership.url){document.getElementById('member').hidden=false;document.getElementById('memberBox').innerHTML=`<a class="btn" href="${esc(S.membership.url)}" target="_blank" rel="noopener">Support on ${esc(S.membership.provider)}</a>`;}
+if(S.analytics.goatcounter){const g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.dataset.goatcounter=S.analytics.goatcounter;document.body.appendChild(g);}
+</script>
+</body>
+</html>
